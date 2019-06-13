@@ -11,3 +11,23 @@ spring:
         format_sql: true
   datasource:
     sql-script-encoding: UTF-8
+
+constants:
+  open-api:
+    host: http://openapi.1365.go.kr
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 1000
+#        loggerLevel: full
+##        decode404: true
+#  hystrix를 키니까 에러 내용을 볼수가 없네...
+  hystrix:
+    enabled: true
+#  httpclient:
+#    enabled: false
+#  okhttp:
+#    enabled: true
