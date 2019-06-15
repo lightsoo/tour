@@ -1,5 +1,7 @@
 package com.example.tour.domain.region;
 
+import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.region.ServiceRegionRepository;
 import com.example.tour.infrastructure.remote.openAPI.OpenAPI;
 import com.example.tour.infrastructure.remote.openAPI.OpenAPIResponseDTO;
 import com.example.tour.infrastructure.remote.openAPI.response.OpenAPIItem;
@@ -7,6 +9,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +40,8 @@ public class RegionCode implements InitializingBean {
     };
 
     private final OpenAPI openAPI;
+    private final ServiceRegionRepository serviceRegionRepository;
+
     @Getter
     private Map<String, List<OpenAPIItem>> regionCodeMap;
 
@@ -47,9 +52,36 @@ public class RegionCode implements InitializingBean {
     }
 
     private void initRegionCode() {
+        final String SUCCESS_CODE = "00";
+
         for (String city : regionalLocalGovernmentList) {
             OpenAPIResponseDTO regionCode = openAPI.getRegionCode(city, 100);
-            regionCodeMap.put(city, regionCode.getResponse().getBody().getItems().getItemList());
+            if (SUCCESS_CODE.equals(regionCode.getResponse().getHeader().getResultCode())) {
+                regionCodeMap.put(city, regionCode.getResponse().getBody().getItems().getItemList());
+                saveServiceRegions(regionCode.getResponse().getBody().getItems().getItemList());
+            }
         }
+    }
+
+    private void saveServiceRegions(List<OpenAPIItem> serviceRegionList) {
+        if (!CollectionUtils.isEmpty(serviceRegionList)) {
+            OpenAPIItem localGovernment = serviceRegionList.get(0);
+            serviceRegionRepository.save(
+                ServiceRegion.builder()
+                             .code(localGovernment.getSidoCode())
+                             .name(localGovernment.getSidoName())
+                             .build()
+            );
+        }
+
+        for (OpenAPIItem city : serviceRegionList) {
+            serviceRegionRepository.save(
+                ServiceRegion.builder()
+                             .code(city.getGugunCode())
+                             .name(city.getSidoName() + city.getGugunName())
+                             .build()
+            );
+        }
+
     }
 }

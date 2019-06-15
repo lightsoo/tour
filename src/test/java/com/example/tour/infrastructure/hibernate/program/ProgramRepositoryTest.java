@@ -29,7 +29,7 @@ public class ProgramRepositoryTest {
     @Before
     public void setUp() throws Exception {
         serviceRegion = ServiceRegion.builder()
-                                     .code("1234")
+                                     .code(1234)
                                      .name("광주")
                                      .build();
         serviceRegionRepository.save(serviceRegion);

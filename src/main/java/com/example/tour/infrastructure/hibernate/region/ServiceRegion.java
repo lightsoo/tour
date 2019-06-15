@@ -21,12 +21,12 @@ import java.util.List;
 public class ServiceRegion {
 
     @Id
-    private String code;
+    private Integer code;
     @Column
     private String name;
 
     @Builder
-    private ServiceRegion(String code, String name) {
+    private ServiceRegion(int code, String name) {
         this.code = code;
         this.name = name;
     }

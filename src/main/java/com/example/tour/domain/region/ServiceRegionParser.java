@@ -39,9 +39,9 @@ public class ServiceRegionParser {
             }
         }
 
-        if (CollectionUtils.isEmpty(serviceRegionList)) {
-            OpenAPIItem localGorverment = sigunguList.get(0);
-            return Collections.singletonList(new ServiceRegion(localGorverment.getSidoCode(), localGorverment.getSidoName()));
+        if (!CollectionUtils.isEmpty(serviceRegionList)) {
+            OpenAPIItem localGovernment = sigunguList.get(0);
+            return Collections.singletonList(new ServiceRegion(localGovernment.getSidoCode(), localGovernment.getSidoName()));
         }
 
         return serviceRegionList;
