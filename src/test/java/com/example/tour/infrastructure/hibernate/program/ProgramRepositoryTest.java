@@ -2,7 +2,6 @@ package com.example.tour.infrastructure.hibernate.program;
 
 import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import com.example.tour.infrastructure.hibernate.region.ServiceRegionRepository;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -22,13 +24,14 @@ public class ProgramRepositoryTest {
     private ServiceRegionRepository serviceRegionRepository;
     private Program program1;
     private Program program2;
+    private ServiceRegion serviceRegion;
 
     @Before
     public void setUp() throws Exception {
-        ServiceRegion serviceRegion = ServiceRegion.builder()
-                                                   .code("1234")
-                                                   .name("광주")
-                                                   .build();
+        serviceRegion = ServiceRegion.builder()
+                                     .code("1234")
+                                     .name("광주")
+                                     .build();
         serviceRegionRepository.save(serviceRegion);
 
         program1 = Program.builder()
@@ -51,17 +54,19 @@ public class ProgramRepositoryTest {
     @Test
     public void save__program() {
         programRepository.save(program1);
-        programRepository.save(program2);
 
-        Optional<Program> programOptional = programRepository.findById(1);
+        Optional<Program> programOptional = programRepository.findById(program1.getNo());
         programOptional.ifPresent(program -> {
-            System.out.println(program);
+            assertThat(program.getName()).isEqualTo(program1.getName());
+            assertThat(program.getDescription()).isEqualTo(program1.getDescription());
         });
-
-//        programRepository.findByRegionCode("1234");
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @Test
+    public void findAllByRegionCode() {
+        programRepository.save(program2);
+        List<Program> allByServiceRegion = programRepository.findAllByServiceRegion(serviceRegion);
+
+        assertThat(allByServiceRegion.size()).isEqualTo(2);
     }
 }

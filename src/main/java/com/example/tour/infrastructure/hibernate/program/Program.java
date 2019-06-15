@@ -32,7 +32,7 @@ public class Program {
     private String description;
 
     @Builder
-    public Program(String name, String theme, String intro, String description, ServiceRegion serviceRegion) {
+    private Program(String name, String theme, String intro, String description, ServiceRegion serviceRegion) {
         this.name = name;
         this.theme = theme;
         this.intro = intro;
@@ -41,7 +41,7 @@ public class Program {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "service_region")
+    @JoinColumn(name = "code")
     private ServiceRegion serviceRegion;
 
 }

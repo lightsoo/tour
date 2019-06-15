@@ -1,9 +1,12 @@
 package com.example.tour.infrastructure.hibernate.program;
 
+import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProgramRepository extends JpaRepository<Program, Integer> {
-//    Program findByRegionCode(String regionCode);
+    List<Program> findAllByServiceRegion(ServiceRegion serviceRegion);
 }
