@@ -11,10 +11,12 @@ spring:
         format_sql: true
   datasource:
     sql-script-encoding: UTF-8
+    url: jdbc:h2:tour
+    username: sa
+    password:
   h2:
     console:
       enabled: true
-
 constants:
   open-api:
     host: http://openapi.1365.go.kr

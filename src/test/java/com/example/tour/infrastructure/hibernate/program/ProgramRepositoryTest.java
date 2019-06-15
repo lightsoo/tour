@@ -2,6 +2,7 @@ package com.example.tour.infrastructure.hibernate.program;
 
 import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import com.example.tour.infrastructure.hibernate.region.ServiceRegionRepository;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,14 +49,13 @@ public class ProgramRepositoryTest {
                           .theme("테마2")
                           .serviceRegion(serviceRegion)
                           .build();
-
+        programRepository.save(program1);
+        programRepository.save(program2);
     }
 
     @Test
-    public void save__program() {
-        programRepository.save(program1);
-
-        Optional<Program> programOptional = programRepository.findById(program1.getNo());
+    public void findById() {
+        Optional<Program> programOptional = programRepository.findById(program1.getId());
         programOptional.ifPresent(program -> {
             assertThat(program.getName()).isEqualTo(program1.getName());
             assertThat(program.getDescription()).isEqualTo(program1.getDescription());
@@ -64,9 +64,13 @@ public class ProgramRepositoryTest {
 
     @Test
     public void findAllByRegionCode() {
-        programRepository.save(program2);
-        List<Program> allByServiceRegion = programRepository.findAllByServiceRegion(serviceRegion);
+        List<Program> allByServiceRegion = programRepository.findAllByServiceRegionCode(serviceRegion.getCode());
 
         assertThat(allByServiceRegion.size()).isEqualTo(2);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        programRepository.deleteAll();
     }
 }

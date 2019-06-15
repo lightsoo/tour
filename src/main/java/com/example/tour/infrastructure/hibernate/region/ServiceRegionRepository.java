@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface ServiceRegionRepository extends JpaRepository<ServiceRegion, Integer> {
     List<ServiceRegion> findAllByNameContains(String name);
+
+    ServiceRegion findByCode(Integer code);
 }

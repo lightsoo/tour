@@ -27,7 +27,7 @@ public class RegionCodeTest {
 
         Map<String, List<OpenAPIItem>> regionCodeMap = regionCode.getRegionCodeMap();
 
-        List<ServiceRegion> serviceRegionList = serviceRegionRepository.findAllByNameContains("서울");
+        List<ServiceRegion> serviceRegionList = serviceRegionRepository.findAllByNameContains("서울특별시");
         List<OpenAPIItem> openAPIItems = regionCodeMap.get("서울특별시");
 
         assertThat(openAPIItems.size()).isGreaterThan(0);

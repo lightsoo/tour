@@ -21,14 +21,14 @@ import javax.persistence.Table;
 public class Program {
     @Id
     @GeneratedValue
-    private Integer no;
+    private Integer id;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "theme", nullable = false)
     private String theme;
-    @Column(name = "intro", nullable = false)
+    @Column(name = "intro")
     private String intro;
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
     @Builder

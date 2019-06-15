@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ProgramRepository extends JpaRepository<Program, Integer> {
     List<Program> findAllByServiceRegion(ServiceRegion serviceRegion);
+
+    List<Program> findAllByServiceRegionCode(Integer code);
 }
