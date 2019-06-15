@@ -1,7 +1,7 @@
 package com.example.tour.domain.tour;
 
-import com.example.tour.domain.region.ServiceRegion;
 import com.example.tour.domain.region.ServiceRegionParser;
+import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +19,37 @@ public class ServiceRegionParserTest {
     private ServiceRegionParser serviceRegionParser;
 
     @Test
-    public void parse() {
+    public void parse__serviceRegion() {
         List<ServiceRegion> sokchoList1 = serviceRegionParser.parse("강원도 속초");
-        assertEquals(sokchoList1.size(), 1);
+        assertEquals(1, sokchoList1.size());
+        assertEquals(sokchoList1.get(0).getName(), "강원도속초시");
+
         List<ServiceRegion> sokchoList2 = serviceRegionParser.parse("강원도 속초시");
-        assertEquals(sokchoList2.size(), 1);
+        assertEquals(1, sokchoList2.size());
+        assertEquals(sokchoList2.get(0).getName(), "강원도속초시");
 
         List<ServiceRegion> gangwondo = serviceRegionParser.parse("강원도 오대산국립공원");
-        assertEquals(gangwondo.size(), 1);
+        assertEquals(1, gangwondo.size());
+        assertEquals("강원도", gangwondo.get(0).getName());
+
+        List<ServiceRegion> gangwondo2 = serviceRegionParser.parse("강원도 원주시 소초면 학곡리 900번지");
+        assertEquals(1, gangwondo2.size());
+        assertEquals("강원도원주시", gangwondo2.get(0).getName());
+
+        List<ServiceRegion> gangwondo3 = serviceRegionParser.parse("강원도");
+        assertEquals(1, gangwondo3.size());
+        assertEquals("강원도", gangwondo3.get(0).getName());
     }
 
     @Test
     public void parse__if__serviceRegion__is__more__than__one() {
         List<ServiceRegion> serviceRegionList = serviceRegionParser.parse("강원도 속초, 양양, 고성");
         assertEquals(serviceRegionList.size(), 3);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void parse__empty__region() {
+        serviceRegionParser.parse("");
     }
 
     @Test(expected = RuntimeException.class)
