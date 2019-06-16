@@ -1,19 +1,21 @@
 package com.example.tour.infrastructure.hibernate.program;
 
-import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.regioncode.RegionCode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Getter
 @Entity
@@ -21,6 +23,7 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString(exclude = "regionCodes")
 public class Program {
     @Id
     @GeneratedValue
@@ -36,8 +39,7 @@ public class Program {
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "code")
-    private ServiceRegion serviceRegion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "program")
+    private List<RegionCode> regionCodes;
 
 }
