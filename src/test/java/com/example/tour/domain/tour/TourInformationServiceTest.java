@@ -3,7 +3,7 @@ package com.example.tour.domain.tour;
 import com.example.tour.domain.region.ServiceRegionParser;
 import com.example.tour.infrastructure.hibernate.program.Program;
 import com.example.tour.infrastructure.hibernate.program.ProgramRepository;
-import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -7,7 +7,7 @@ import com.example.tour.exception.NotFoundProgramException;
 import com.example.tour.exception.NotFoundServiceRegionException;
 import com.example.tour.infrastructure.hibernate.program.Program;
 import com.example.tour.infrastructure.hibernate.program.ProgramRepository;
-import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
 import com.example.tour.util.CsvUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

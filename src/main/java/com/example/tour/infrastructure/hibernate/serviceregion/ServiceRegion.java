@@ -1,4 +1,4 @@
-package com.example.tour.infrastructure.hibernate.region;
+package com.example.tour.infrastructure.hibernate.serviceregion;
 
 import com.example.tour.infrastructure.hibernate.program.Program;
 import lombok.AccessLevel;

@@ -2,7 +2,7 @@ package com.example.tour.domain.tour;
 
 import com.example.tour.domain.region.ServiceRegionParser;
 import com.example.tour.exception.NotFoundServiceRegionException;
-import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

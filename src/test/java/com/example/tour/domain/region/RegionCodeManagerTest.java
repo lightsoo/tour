@@ -1,7 +1,7 @@
 package com.example.tour.domain.region;
 
-import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
-import com.example.tour.infrastructure.hibernate.region.ServiceRegionRepository;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegionRepository;
 import com.example.tour.infrastructure.remote.openAPI.response.OpenAPIItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
 package com.example.tour.infrastructure.hibernate.program;
 
-import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
-import com.example.tour.infrastructure.hibernate.region.ServiceRegionRepository;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegionRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

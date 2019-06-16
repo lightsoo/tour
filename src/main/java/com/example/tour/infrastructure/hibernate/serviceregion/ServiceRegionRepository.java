@@ -1,4 +1,4 @@
-package com.example.tour.infrastructure.hibernate.region;
+package com.example.tour.infrastructure.hibernate.serviceregion;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

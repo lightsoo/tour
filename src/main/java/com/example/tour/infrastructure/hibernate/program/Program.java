@@ -1,6 +1,6 @@
 package com.example.tour.infrastructure.hibernate.program;
 
-import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
+import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
