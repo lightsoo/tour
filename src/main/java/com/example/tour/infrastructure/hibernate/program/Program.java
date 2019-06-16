@@ -23,7 +23,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@ToString(exclude = "regionCodes")
+@ToString(exclude = "programServiceRegions")
 public class Program {
     @Id
     @GeneratedValue
