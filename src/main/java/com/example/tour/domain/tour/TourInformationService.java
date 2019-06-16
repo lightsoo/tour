@@ -84,7 +84,7 @@ public class TourInformationService {
         programDTO.setTheme(program.getTheme());
         programDTO.setIntro(program.getIntro());
         programDTO.setDescription(program.getDescription());
-        programDTO.setServiceRegion(program.getServiceRegionName());
+        programDTO.setServiceRegionName(program.getServiceRegionName());
 
         return programDTO;
     }
@@ -97,6 +97,7 @@ public class TourInformationService {
                                       .theme(tourInformation.getTheme())
                                       .intro(tourInformation.getIntro())
                                       .description(tourInformation.getDescription())
+                                      .serviceRegionName(tourInformation.getServiceRegionName())
                                       .serviceRegion(serviceRegion)
                                       .build()
                            ));

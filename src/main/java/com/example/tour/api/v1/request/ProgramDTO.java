@@ -12,7 +12,7 @@ public class ProgramDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String theme;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String serviceRegion;
+    private String serviceRegionName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String intro;
     @JsonInclude(JsonInclude.Include.NON_NULL)

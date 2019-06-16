@@ -19,7 +19,7 @@ public class CsvUtil {
                                     .addColumn("no", CsvSchema.ColumnType.NUMBER)
                                     .addColumn("name")
                                     .addColumn("theme")
-                                    .addColumn("serviceRegion")
+                                    .addColumn("serviceRegionName")
                                     .addColumn("intro")
                                     .addColumn("description")
                                     .build()
