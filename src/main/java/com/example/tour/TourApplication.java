@@ -14,7 +14,7 @@ import java.io.File;
 public class TourApplication {
 
     public static void main(String[] args) {
-        new File(TourController.uploadingDir).mkdirs();
+        new File(TourController.UPLOADING_DIRECTORY).mkdirs();
         SpringApplication.run(TourApplication.class, args);
     }
 

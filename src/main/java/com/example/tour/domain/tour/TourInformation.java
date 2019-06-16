@@ -11,7 +11,7 @@ public class TourInformation implements Serializable {
     private int no;
     private String name;
     private String theme;
-    private String serviceRegion;
+    private String serviceRegionName;
     private String intro;
     private String description;
 }

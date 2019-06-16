@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -38,19 +39,31 @@ public class ProgramRepositoryTest {
         program1 = Program.builder()
                           .name("프로그램1")
                           .intro("간단한 소개")
-                          .description("장황한 설명")
+                          .description("설명")
                           .theme("테마1")
                           .serviceRegion(serviceRegion)
                           .build();
         program2 = Program.builder()
                           .name("프로그램2")
                           .intro("간단한 소개2")
-                          .description("장황한 설명2")
+                          .description("설명2")
                           .theme("테마2")
                           .serviceRegion(serviceRegion)
                           .build();
         programRepository.save(program1);
         programRepository.save(program2);
+    }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    public void fail__saveProgram__if__required__parameter__is__empty() {
+        Program invalidProgram = Program.builder()
+                                        .intro("간단한 소개2")
+                                        .description("설명2")
+                                        .theme("테마2")
+                                        .serviceRegion(serviceRegion)
+                                        .build();
+
+        programRepository.save(invalidProgram);
     }
 
     @Test
@@ -67,6 +80,37 @@ public class ProgramRepositoryTest {
         List<Program> allByServiceRegion = programRepository.findAllByServiceRegionCode(serviceRegion.getCode());
 
         assertThat(allByServiceRegion.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void updateProgram() {
+        Program program = Program.builder()
+                                 .name("프로그램1")
+                                 .intro("간단한 소개")
+                                 .description("설명")
+                                 .theme("테마1")
+                                 .serviceRegion(serviceRegion)
+                                 .build();
+
+        Program savedProgram = programRepository.save(program);
+
+        Program modifiedProgram = Program.builder()
+                                         .id(savedProgram.getId())
+                                         .name("수정된 프로그램")
+                                         .theme("테마222")
+                                         .intro("수정된 소개")
+                                         .description("수정된 내용")
+                                         .serviceRegion(serviceRegion)
+                                         .build();
+
+        programRepository.save(modifiedProgram);
+        programRepository.findById(savedProgram.getId()).ifPresent(p -> {
+            assertThat(p.getId()).isEqualTo(modifiedProgram.getId());
+            assertThat(p.getDescription()).isEqualTo(modifiedProgram.getDescription());
+
+            assertThat(p.getName()).isEqualTo(modifiedProgram.getName());
+            assertThat(p.getTheme()).isEqualTo(modifiedProgram.getTheme());
+        });
     }
 
     @After

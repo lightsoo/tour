@@ -1,14 +1,21 @@
 package com.example.tour.domain.tour;
 
+import com.example.tour.api.v1.request.ProgramDTO;
+import com.example.tour.api.v1.response.TourInformationResponseDTO;
 import com.example.tour.domain.region.ServiceRegionParser;
 import com.example.tour.infrastructure.hibernate.program.Program;
 import com.example.tour.infrastructure.hibernate.program.ProgramRepository;
+import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import com.example.tour.util.CsvUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +28,69 @@ public class TourInformationService {
                .forEach(this::saveProgram);
     }
 
+    public void createTourInformation(TourInformation tourInformation) {
+        saveProgram(tourInformation);
+    }
+
+    public void updateTourInformation(TourInformation modifiedTourInformation) {
+        Program originProgram = programRepository.findById(modifiedTourInformation.getNo())
+                                                 .orElseThrow(() -> new RuntimeException("Not found program id"));
+
+        Set<ServiceRegion> serviceRegionSet = new HashSet<>(serviceRegionParser.parse(modifiedTourInformation.getServiceRegionName()));
+        ServiceRegion originServiceRegion = originProgram.getServiceRegion();
+
+        if (serviceRegionSet.contains(originServiceRegion)) {
+            programRepository.save(
+                Program.builder()
+                       .id(originProgram.getId())
+                       .name(modifiedTourInformation.getName())
+                       .theme(modifiedTourInformation.getTheme())
+                       .intro(modifiedTourInformation.getIntro())
+                       .description(modifiedTourInformation.getDescription())
+                       .serviceRegion(originServiceRegion)
+                       .build()
+            );
+
+            serviceRegionSet.remove(originServiceRegion);
+        }
+
+        saveProgramIfServiceRegionAdded(modifiedTourInformation, serviceRegionSet);
+    }
+
+    public TourInformationResponseDTO getTourInformationListByServiceRegionCode(String serviceRegionName) {
+        ServiceRegion serviceRegion = serviceRegionParser.parse(serviceRegionName).stream().findFirst()
+                                                         .orElseThrow(() -> new RuntimeException("Not found service region:" + serviceRegionName));
+
+        List<ProgramDTO> programDTOList = programRepository.findAllByServiceRegion(serviceRegion)
+                                                           .stream()
+                                                           .map(program -> {
+                                                               ProgramDTO programDTO = new ProgramDTO();
+                                                               programDTO.setName(program.getName());
+                                                               programDTO.setTheme(program.getTheme());
+                                                               return programDTO;
+                                                           })
+                                                           .collect(Collectors.toList());
+
+        return new TourInformationResponseDTO(serviceRegion.getCode(), programDTOList);
+    }
+
+    public ProgramDTO getTourInformationByProgramId(Integer programId) {
+        Program program = programRepository.findById(programId)
+                                           .orElseThrow(() -> new RuntimeException("Not found program id"));
+
+        ProgramDTO programDTO = new ProgramDTO();
+        programDTO.setId(program.getId());
+        programDTO.setName(program.getName());
+        programDTO.setTheme(program.getTheme());
+        programDTO.setIntro(program.getIntro());
+        programDTO.setDescription(program.getDescription());
+        programDTO.setServiceRegion(program.getServiceRegionName());
+
+        return programDTO;
+    }
+
     private void saveProgram(TourInformation tourInformation) {
-        serviceRegionParser.parse(tourInformation.getServiceRegion())
+        serviceRegionParser.parse(tourInformation.getServiceRegionName())
                            .forEach(serviceRegion -> programRepository.save(
                                Program.builder()
                                       .name(tourInformation.getName())
@@ -31,9 +99,20 @@ public class TourInformationService {
                                       .description(tourInformation.getDescription())
                                       .serviceRegion(serviceRegion)
                                       .build()
-                                    )
-                           );
+                           ));
     }
 
+    private void saveProgramIfServiceRegionAdded(TourInformation modifiedTourInformation, Set<ServiceRegion> serviceRegionList) {
+        serviceRegionList.forEach(serviceRegion -> programRepository.save(
+            Program.builder()
+                   .name(modifiedTourInformation.getName())
+                   .theme(modifiedTourInformation.getTheme())
+                   .intro(modifiedTourInformation.getIntro())
+                   .description(modifiedTourInformation.getDescription())
+                   .serviceRegionName(modifiedTourInformation.getServiceRegionName())
+                   .serviceRegion(serviceRegion)
+                   .build()
+        ));
+    }
 }
 

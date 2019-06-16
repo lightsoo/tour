@@ -2,6 +2,7 @@ package com.example.tour.infrastructure.hibernate.program;
 
 import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,8 @@ import javax.persistence.Table;
 @Getter
 @Entity
 @Table(name = "program")
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Program {
     @Id
@@ -28,17 +31,10 @@ public class Program {
     private String theme;
     @Column(name = "intro")
     private String intro;
+    @Column(name = "service_region_name")
+    private String serviceRegionName;
     @Column(name = "description", columnDefinition = "text")
     private String description;
-
-    @Builder
-    private Program(String name, String theme, String intro, String description, ServiceRegion serviceRegion) {
-        this.name = name;
-        this.theme = theme;
-        this.intro = intro;
-        this.description = description;
-        this.serviceRegion = serviceRegion;
-    }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "code")
