@@ -1,5 +1,6 @@
 package com.example.tour.domain.region;
 
+import com.example.tour.exception.NotFoundServiceRegionException;
 import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import com.example.tour.infrastructure.hibernate.region.ServiceRegionRepository;
 import com.example.tour.infrastructure.remote.openAPI.response.OpenAPIItem;
@@ -20,7 +21,7 @@ public class ServiceRegionParser {
 
     public List<ServiceRegion> parse(String serviceRegionName) {
         if (StringUtils.isEmpty(serviceRegionName)) {
-            throw new RuntimeException("Service region is required");
+            throw new NotFoundServiceRegionException(serviceRegionName);
         }
 
         if (serviceRegionName.contains(",")) {
@@ -53,7 +54,7 @@ public class ServiceRegionParser {
         List<OpenAPIItem> sigunguList = regionCode.getRegionCodeMap().get(localGovernmentName);
 
         if (CollectionUtils.isEmpty(sigunguList)) {
-            throw new RuntimeException(localGovernmentName + "is unknown service region");
+            throw new NotFoundServiceRegionException(localGovernmentName);
         }
 
         List<ServiceRegion> serviceRegionList = new ArrayList<>();

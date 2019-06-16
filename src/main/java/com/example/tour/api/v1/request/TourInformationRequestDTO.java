@@ -16,8 +16,6 @@ import javax.validation.constraints.NotNull;
 public class TourInformationRequestDTO {
 
     @NotNull
-    private Integer id;
-    @NotNull
     private String name;
     @NotNull
     private String theme;

@@ -23,7 +23,7 @@ public class RegionCodeTest {
     private ServiceRegionRepository serviceRegionRepository;
 
     @Test
-    public void successToInitialize__service__region() {
+    public void success__initialize__service__region() {
 
         Map<String, List<OpenAPIItem>> regionCodeMap = regionCode.getRegionCodeMap();
 

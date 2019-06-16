@@ -46,7 +46,7 @@ public class TourControllerTest {
                                                                         .serviceRegionName("광주광역시")
                                                                         .build();
 
-        mvc.perform(post("/tour/v1/")
+        mvc.perform(post("/tour/v1/program")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDTO))
         )
@@ -64,7 +64,7 @@ public class TourControllerTest {
                                                                         .serviceRegionName("광주광역시")
                                                                         .build();
 
-        mvc.perform(post("/tour/v1/")
+        mvc.perform(post("/tour/v1/program")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDTO))
         )
@@ -80,7 +80,7 @@ public class TourControllerTest {
                                                                         .serviceRegionName("광주광역시")
                                                                         .build();
 
-        mvc.perform(put("/tour/v1/")
+        mvc.perform(put("/tour/v1/program")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDTO))
         )

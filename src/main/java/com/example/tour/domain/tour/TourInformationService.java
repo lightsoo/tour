@@ -3,6 +3,8 @@ package com.example.tour.domain.tour;
 import com.example.tour.api.v1.request.ProgramDTO;
 import com.example.tour.api.v1.response.TourInformationResponseDTO;
 import com.example.tour.domain.region.ServiceRegionParser;
+import com.example.tour.exception.NotFoundProgramException;
+import com.example.tour.exception.NotFoundServiceRegionException;
 import com.example.tour.infrastructure.hibernate.program.Program;
 import com.example.tour.infrastructure.hibernate.program.ProgramRepository;
 import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
@@ -34,7 +36,7 @@ public class TourInformationService {
 
     public void updateTourInformation(TourInformation modifiedTourInformation) {
         Program originProgram = programRepository.findById(modifiedTourInformation.getNo())
-                                                 .orElseThrow(() -> new RuntimeException("Not found program id"));
+                                                 .orElseThrow(() -> new NotFoundProgramException(modifiedTourInformation.getNo()));
 
         Set<ServiceRegion> serviceRegionSet = new HashSet<>(serviceRegionParser.parse(modifiedTourInformation.getServiceRegionName()));
         ServiceRegion originServiceRegion = originProgram.getServiceRegion();
@@ -59,7 +61,7 @@ public class TourInformationService {
 
     public TourInformationResponseDTO getTourInformationListByServiceRegionCode(String serviceRegionName) {
         ServiceRegion serviceRegion = serviceRegionParser.parse(serviceRegionName).stream().findFirst()
-                                                         .orElseThrow(() -> new RuntimeException("Not found service region:" + serviceRegionName));
+                                                         .orElseThrow(() -> new NotFoundServiceRegionException(serviceRegionName));
 
         List<ProgramDTO> programDTOList = programRepository.findAllByServiceRegion(serviceRegion)
                                                            .stream()
@@ -76,7 +78,7 @@ public class TourInformationService {
 
     public ProgramDTO getTourInformationByProgramId(Integer programId) {
         Program program = programRepository.findById(programId)
-                                           .orElseThrow(() -> new RuntimeException("Not found program id"));
+                                           .orElseThrow(() -> new NotFoundProgramException(programId));
 
         ProgramDTO programDTO = new ProgramDTO();
         programDTO.setId(program.getId());

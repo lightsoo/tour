@@ -1,6 +1,7 @@
 package com.example.tour.domain.tour;
 
 import com.example.tour.domain.region.ServiceRegionParser;
+import com.example.tour.exception.NotFoundServiceRegionException;
 import com.example.tour.infrastructure.hibernate.region.ServiceRegion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,15 +45,16 @@ public class ServiceRegionParserTest {
     @Test
     public void parse__if__serviceRegion__is__more__than__one() {
         List<ServiceRegion> serviceRegionList = serviceRegionParser.parse("강원도 속초, 양양, 고성");
+
         assertEquals(serviceRegionList.size(), 3);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = NotFoundServiceRegionException.class)
     public void parse__empty__region() {
         serviceRegionParser.parse("");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = NotFoundServiceRegionException.class)
     public void parse__unknown__region() {
         serviceRegionParser.parse("한양");
     }

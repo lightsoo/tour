@@ -47,7 +47,7 @@ public class TourController {
         return tourInformationService.getTourInformationByProgramId(programId);
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/program")
     @ResponseStatus(HttpStatus.CREATED)
     public void createTourInformation(@RequestBody @Valid TourInformationRequestDTO request) {
         TourInformation tourInformation = TourInformationRequestDTO.convert(request);
@@ -55,7 +55,7 @@ public class TourController {
         tourInformationService.createTourInformation(tourInformation);
     }
 
-    @PutMapping(value = "/")
+    @PutMapping(value = "/program")
     public void modifyTourInformation(@RequestBody TourInformationRequestDTO request) {
         TourInformation modifiedTourInformation = TourInformationRequestDTO.convert(request);
 
