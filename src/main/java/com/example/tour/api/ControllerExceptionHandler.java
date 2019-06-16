@@ -2,6 +2,8 @@ package com.example.tour.api;
 
 import com.example.tour.exception.NotFoundProgramException;
 import com.example.tour.exception.NotFoundServiceRegionException;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,26 +21,41 @@ public class ControllerExceptionHandler {
         NotFoundProgramException.class,
         NotFoundServiceRegionException.class
     })
-    public ResponseEntity<Object> notFoundException(Exception ex, WebRequest rew) {
+    public ResponseEntity<ErrorDTO> notFoundException(Exception ex, WebRequest rew) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage(ex.getLocalizedMessage());
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                             .body(ex.getMessage());
+                             .body(errorDTO);
     }
 
     @ExceptionHandler(value = {
         MethodArgumentNotValidException.class
     })
-    public ResponseEntity<Object> badRequestException(Exception ex, WebRequest rew) {
+    public ResponseEntity<ErrorDTO> badRequestException(Exception ex, WebRequest rew) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage(ex.getLocalizedMessage());
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                             .body(ex.getMessage());
+                             .body(errorDTO);
     }
 
     @ExceptionHandler(value = {
         Exception.class
     })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<Object> unknownException(Exception ex, WebRequest req) {
+    public ResponseEntity<ErrorDTO> unknownException(Exception ex, WebRequest req) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage(ex.getLocalizedMessage());
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                             .body(ex.getMessage());
+                             .body(errorDTO);
+    }
+
+    @Data
+    @NoArgsConstructor
+    private class ErrorDTO {
+        private String message;
     }
 
 }
