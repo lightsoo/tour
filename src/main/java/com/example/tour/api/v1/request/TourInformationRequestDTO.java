@@ -1,6 +1,7 @@
 package com.example.tour.api.v1.request;
 
 import com.example.tour.domain.tour.TourInformation;
+import io.swagger.models.auth.In;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TourInformationRequestDTO {
-
+    private Integer no;
     @NotNull
     private String name;
     @NotNull
@@ -26,6 +27,7 @@ public class TourInformationRequestDTO {
 
     public static TourInformation convert(TourInformationRequestDTO request) {
         TourInformation tourInformation = new TourInformation();
+        tourInformation.setNo(request.getNo());
         tourInformation.setName(request.getName());
         tourInformation.setTheme(request.getTheme());
         tourInformation.setDescription(request.getDescription());

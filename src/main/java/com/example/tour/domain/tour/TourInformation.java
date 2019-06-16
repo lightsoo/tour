@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class TourInformation implements Serializable {
     private static final long serialVersionUID = -4629253652060033619L;
 
-    private int no;
+    private Integer no;
     private String name;
     private String theme;
     private String serviceRegionName;

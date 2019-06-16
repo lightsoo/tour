@@ -75,6 +75,7 @@ public class TourControllerTest {
     @Test
     public void success__modifyTourInformation() throws Exception {
         TourInformationRequestDTO requestDTO = TourInformationRequestDTO.builder()
+                                                                        .no(1)
                                                                         .name("name")
                                                                         .theme("테마")
                                                                         .serviceRegionName("광주광역시")

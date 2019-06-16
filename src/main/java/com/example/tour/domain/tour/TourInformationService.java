@@ -50,6 +50,7 @@ public class TourInformationService {
                        .intro(modifiedTourInformation.getIntro())
                        .description(modifiedTourInformation.getDescription())
                        .serviceRegion(originServiceRegion)
+                       .serviceRegionName(modifiedTourInformation.getServiceRegionName())
                        .build()
             );
 
@@ -73,7 +74,7 @@ public class TourInformationService {
                                                            })
                                                            .collect(Collectors.toList());
 
-        return new TourInformationResponseDTO(serviceRegion.getCode(), programDTOList);
+        return new TourInformationResponseDTO((long) serviceRegion.getCode(), programDTOList);
     }
 
     public ProgramDTO getTourInformationByProgramId(Integer programId) {

@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TourInformationResponseDTO {
     @JsonProperty("region")
-    private Integer code;
+    private Long code;
 
     @JsonProperty("programs")
     private List<ProgramDTO> programs;

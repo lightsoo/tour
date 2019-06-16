@@ -4,6 +4,7 @@ import com.example.tour.infrastructure.hibernate.program.Program;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,6 +24,7 @@ import java.util.List;
 @Table(name = "service_region")
 @ToString(exclude = "programs")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(exclude = "programs")
 public class ServiceRegion {
 
     @Id
