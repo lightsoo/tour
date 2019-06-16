@@ -16,16 +16,16 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RegionCodeTest {
+public class RegionCodeManagerTest {
     @Autowired
-    private RegionCode regionCode;
+    private RegionCodeManager regionCodeManager;
     @Autowired
     private ServiceRegionRepository serviceRegionRepository;
 
     @Test
     public void success__initialize__service__region() {
 
-        Map<String, List<OpenAPIItem>> regionCodeMap = regionCode.getRegionCodeMap();
+        Map<String, List<OpenAPIItem>> regionCodeMap = regionCodeManager.getRegionCodeMap();
 
         List<ServiceRegion> serviceRegionList = serviceRegionRepository.findAllByNameContains("서울특별시");
         List<OpenAPIItem> openAPIItems = regionCodeMap.get("서울특별시");

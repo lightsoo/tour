@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class RegionCode implements InitializingBean {
+public class RegionCodeManager implements InitializingBean {
 
     private final String[] regionalLocalGovernmentList = new String[]{
         "서울특별시",

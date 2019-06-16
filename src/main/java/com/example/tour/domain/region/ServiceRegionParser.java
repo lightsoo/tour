@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ServiceRegionParser {
-    private final RegionCode regionCode;
+    private final RegionCodeManager regionCodeManager;
     private final ServiceRegionRepository regionRepository;
 
     public List<ServiceRegion> parse(String serviceRegionName) {
@@ -51,7 +51,7 @@ public class ServiceRegionParser {
     }
 
     private List<ServiceRegion> getServiceRegionCode(String localGovernmentName, String... sigunguNameCandidate) {
-        List<OpenAPIItem> sigunguList = regionCode.getRegionCodeMap().get(localGovernmentName);
+        List<OpenAPIItem> sigunguList = regionCodeManager.getRegionCodeMap().get(localGovernmentName);
 
         if (CollectionUtils.isEmpty(sigunguList)) {
             throw new NotFoundServiceRegionException(localGovernmentName);
