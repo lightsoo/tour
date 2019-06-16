@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 @Slf4j
-@RestControllerAdvice
+//@RestControllerAdvice
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = {

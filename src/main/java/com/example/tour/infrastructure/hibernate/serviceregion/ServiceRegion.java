@@ -25,7 +25,9 @@ public class ServiceRegion {
     @Id
     private Integer code;
     @Column
-    private String name;
+    private String sidoName;
+    @Column
+    private String gugunName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceRegion")
     private List<ProgramServiceRegion> programServiceRegions;

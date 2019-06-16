@@ -20,9 +20,9 @@ public class ServiceRegionParser {
     private final ServiceRegionRepository regionRepository;
 
     public List<ServiceRegion> parse(String serviceRegionName) {
-        if (StringUtils.isEmpty(serviceRegionName)) {
-            throw new NotFoundServiceRegionException(serviceRegionName);
-        }
+//        if (StringUtils.isEmpty(serviceRegionName)) {
+//            throw new NotFoundServiceRegionException(serviceRegionName);
+//        }
 
         if (serviceRegionName.contains(",")) {
             return getMultipleServiceRegion(serviceRegionName);

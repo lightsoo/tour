@@ -27,11 +27,11 @@ public class RegionCodeManagerTest {
 
         Map<String, List<OpenAPIItem>> regionCodeMap = regionCodeManager.getRegionCodeMap();
 
-        List<ServiceRegion> serviceRegionList = serviceRegionRepository.findAllByNameContains("서울특별시");
+        ServiceRegion serviceRegion = serviceRegionRepository.findFirstByGugunName("서울특별시");
         List<OpenAPIItem> openAPIItems = regionCodeMap.get("서울특별시");
 
         assertThat(openAPIItems.size()).isGreaterThan(0);
-        assertThat(serviceRegionList.size()).isGreaterThan(0);
+        assertThat(serviceRegion).isNotNull();
 
     }
 }

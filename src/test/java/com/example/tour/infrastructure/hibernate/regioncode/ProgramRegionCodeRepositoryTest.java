@@ -33,7 +33,7 @@ public class ProgramRegionCodeRepositoryTest {
     @Before
     public void setUp() throws Exception {
         String serviceRegionName = "광주광역시";
-        serviceRegion = serviceRegionRepository.findByName(serviceRegionName);
+        serviceRegion = serviceRegionRepository.findFirstByGugunName(serviceRegionName);
 
         program1 = Program.builder()
                           .name("프로그램1")
@@ -76,4 +76,5 @@ public class ProgramRegionCodeRepositoryTest {
 
         assertThat(result.size()).isEqualTo(2);
     }
+
 }

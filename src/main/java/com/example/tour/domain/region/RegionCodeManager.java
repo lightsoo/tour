@@ -69,7 +69,8 @@ public class RegionCodeManager implements InitializingBean {
             serviceRegionRepository.save(
                 ServiceRegion.builder()
                              .code(localGovernment.getSidoCode())
-                             .name(localGovernment.getSidoName())
+                             .sidoName(localGovernment.getSidoName())
+                             .gugunName(localGovernment.getSidoName())
                              .build()
             );
         }
@@ -78,7 +79,8 @@ public class RegionCodeManager implements InitializingBean {
             serviceRegionRepository.save(
                 ServiceRegion.builder()
                              .code(city.getGugunCode())
-                             .name(city.getSidoName() + city.getGugunName())
+                             .sidoName(city.getSidoName())
+                             .gugunName(city.getGugunName())
                              .build()
             );
         }

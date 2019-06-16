@@ -12,4 +12,6 @@ public interface ProgramServiceRegionRepository extends JpaRepository<ProgramSer
     List<ProgramServiceRegion> findAllByProgram(Program program);
 
     List<ProgramServiceRegion> findAllByServiceRegion(ServiceRegion serviceRegion);
+
+    void deleteAllByProgramId(Integer no);
 }

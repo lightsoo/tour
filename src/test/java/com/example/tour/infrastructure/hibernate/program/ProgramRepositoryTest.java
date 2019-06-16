@@ -32,7 +32,7 @@ public class ProgramRepositoryTest {
     @Before
     public void setUp() throws Exception {
         serviceRegionName = "광주광역시";
-        serviceRegion = serviceRegionRepository.findByName(serviceRegionName);
+        serviceRegion = serviceRegionRepository.findFirstByGugunName(serviceRegionName);
     }
 
     @Test
