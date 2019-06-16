@@ -1,6 +1,6 @@
 package com.example.tour.infrastructure.hibernate.program;
 
-import com.example.tour.infrastructure.hibernate.regioncode.RegionCode;
+import com.example.tour.infrastructure.hibernate.regioncode.ProgramServiceRegion;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +40,6 @@ public class Program {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "program")
-    private List<RegionCode> regionCodes;
+    private List<ProgramServiceRegion> programServiceRegions;
 
 }

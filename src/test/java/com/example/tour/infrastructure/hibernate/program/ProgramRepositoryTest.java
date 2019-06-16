@@ -1,7 +1,7 @@
 package com.example.tour.infrastructure.hibernate.program;
 
-import com.example.tour.infrastructure.hibernate.regioncode.RegionCode;
-import com.example.tour.infrastructure.hibernate.regioncode.RegionCodeRepository;
+import com.example.tour.infrastructure.hibernate.regioncode.ProgramServiceRegion;
+import com.example.tour.infrastructure.hibernate.regioncode.ProgramServiceRegionRepository;
 import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegion;
 import com.example.tour.infrastructure.hibernate.serviceregion.ServiceRegionRepository;
 import org.junit.After;
@@ -24,7 +24,7 @@ public class ProgramRepositoryTest {
     @Autowired
     private ServiceRegionRepository serviceRegionRepository;
     @Autowired
-    private RegionCodeRepository regionCodeRepository;
+    private ProgramServiceRegionRepository programServiceRegionRepository;
 
     private ServiceRegion serviceRegion;
     private String serviceRegionName;
@@ -47,11 +47,11 @@ public class ProgramRepositoryTest {
 
         programRepository.save(program);
 
-        regionCodeRepository.save(
-            RegionCode.builder()
-                      .code(serviceRegion.getCode())
-                      .program(program)
-                      .build()
+        programServiceRegionRepository.save(
+            ProgramServiceRegion.builder()
+                                .code(serviceRegion.getCode())
+                                .program(program)
+                                .build()
         );
     }
 
@@ -78,11 +78,11 @@ public class ProgramRepositoryTest {
 
         programRepository.save(program);
 
-        regionCodeRepository.save(
-            RegionCode.builder()
-                      .code(serviceRegion.getCode())
-                      .program(program)
-                      .build()
+        programServiceRegionRepository.save(
+            ProgramServiceRegion.builder()
+                                .code(serviceRegion.getCode())
+                                .program(program)
+                                .build()
         );
 
         programRepository.findById(program.getId()).ifPresent(p -> {

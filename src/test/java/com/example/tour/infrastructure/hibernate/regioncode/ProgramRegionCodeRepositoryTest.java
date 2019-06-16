@@ -14,18 +14,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RegionCodeRepositoryTest {
+public class ProgramRegionCodeRepositoryTest {
 
     @Autowired
     private ProgramRepository programRepository;
     @Autowired
     private ServiceRegionRepository serviceRegionRepository;
     @Autowired
-    private RegionCodeRepository regionCodeRepository;
+    private ProgramServiceRegionRepository programServiceRegionRepository;
 
     private Program program1;
     private Program program2;
@@ -46,11 +45,11 @@ public class RegionCodeRepositoryTest {
 
         programRepository.save(program1);
 
-        regionCodeRepository.save(
-            RegionCode.builder()
-                      .code(serviceRegion.getCode())
-                      .program(program1)
-                      .build()
+        programServiceRegionRepository.save(
+            ProgramServiceRegion.builder()
+                                .code(serviceRegion.getCode())
+                                .program(program1)
+                                .build()
         );
 
         program2 = Program.builder()
@@ -63,18 +62,18 @@ public class RegionCodeRepositoryTest {
 
         programRepository.save(program2);
 
-        regionCodeRepository.save(
-            RegionCode.builder()
-                      .code(serviceRegion.getCode())
-                      .program(program2)
-                      .build()
+        programServiceRegionRepository.save(
+            ProgramServiceRegion.builder()
+                                .code(serviceRegion.getCode())
+                                .program(program2)
+                                .build()
         );
     }
 
     @Test
     public void findAllByCode() {
-        List<RegionCode> RegionCodeList = regionCodeRepository.findAllByCode(serviceRegion.getCode());
+        List<ProgramServiceRegion> programServiceRegionList = programServiceRegionRepository.findAllByCode(serviceRegion.getCode());
 
-        assertThat(RegionCodeList.size()).isEqualTo(2);
+        assertThat(programServiceRegionList.size()).isEqualTo(2);
     }
 }

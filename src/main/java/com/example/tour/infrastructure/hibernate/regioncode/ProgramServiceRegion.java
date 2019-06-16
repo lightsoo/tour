@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Table(name = "region_code")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RegionCode {
+public class ProgramServiceRegion {
 
     @Id
     @GeneratedValue

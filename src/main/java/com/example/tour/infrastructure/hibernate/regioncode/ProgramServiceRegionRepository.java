@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RegionCodeRepository extends JpaRepository<RegionCode, Integer> {
-    List<RegionCode> findAllByProgram(Program program);
+public interface ProgramServiceRegionRepository extends JpaRepository<ProgramServiceRegion, Integer> {
+    List<ProgramServiceRegion> findAllByProgram(Program program);
 
-    List<RegionCode> findAllByCode(Integer code);
+    List<ProgramServiceRegion> findAllByCode(Integer code);
 }

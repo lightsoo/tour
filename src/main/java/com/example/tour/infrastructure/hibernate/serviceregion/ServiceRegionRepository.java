@@ -10,4 +10,6 @@ public interface ServiceRegionRepository extends JpaRepository<ServiceRegion, In
     List<ServiceRegion> findAllByNameContains(String name);
 
     ServiceRegion findByCode(Integer code);
+
+    ServiceRegion findByName(String name);
 }
