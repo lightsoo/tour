@@ -49,7 +49,7 @@ public class ProgramRepositoryTest {
 
         programServiceRegionRepository.save(
             ProgramServiceRegion.builder()
-                                .code(serviceRegion.getCode())
+                                .serviceRegion(serviceRegion)
                                 .program(program)
                                 .build()
         );
@@ -80,7 +80,7 @@ public class ProgramRepositoryTest {
 
         programServiceRegionRepository.save(
             ProgramServiceRegion.builder()
-                                .code(serviceRegion.getCode())
+                                .serviceRegion(serviceRegion)
                                 .program(program)
                                 .build()
         );

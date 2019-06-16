@@ -47,7 +47,7 @@ public class ProgramRegionCodeRepositoryTest {
 
         programServiceRegionRepository.save(
             ProgramServiceRegion.builder()
-                                .code(serviceRegion.getCode())
+                                .serviceRegion(serviceRegion)
                                 .program(program1)
                                 .build()
         );
@@ -64,7 +64,7 @@ public class ProgramRegionCodeRepositoryTest {
 
         programServiceRegionRepository.save(
             ProgramServiceRegion.builder()
-                                .code(serviceRegion.getCode())
+                                .serviceRegion(serviceRegion)
                                 .program(program2)
                                 .build()
         );
@@ -72,8 +72,8 @@ public class ProgramRegionCodeRepositoryTest {
 
     @Test
     public void findAllByCode() {
-        List<ProgramServiceRegion> programServiceRegionList = programServiceRegionRepository.findAllByCode(serviceRegion.getCode());
+        List<ProgramServiceRegion> result = programServiceRegionRepository.findAllByServiceRegion(serviceRegion);
 
-        assertThat(programServiceRegionList.size()).isEqualTo(2);
+        assertThat(result.size()).isEqualTo(2);
     }
 }
